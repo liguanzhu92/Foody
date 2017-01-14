@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
 
 /**
@@ -56,10 +58,6 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         public void run() {
             // Delayed display of UI elements
-/*            ActionBar actionBar = getSupportActionBar();
-            if (actionBar != null) {
-                actionBar.show();
-            }*/
             mControlsView.setVisibility(View.VISIBLE);
         }
     };
@@ -85,13 +83,16 @@ public class SplashActivity extends AppCompatActivity {
         }
     };
     protected AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
+    protected AlphaAnimation fadeOut = new AlphaAnimation(1.0f , 0.0f ) ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_splash);
-
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.hide();
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
@@ -137,11 +138,6 @@ public class SplashActivity extends AppCompatActivity {
     }
 
     private void hide() {
-        // Hide UI first
-        ActionBar actionBar = getSupportActionBar();
-        if (actionBar != null) {
-            actionBar.hide();
-        }
         mControlsView.setVisibility(View.GONE);
         mVisible = false;
 

@@ -11,7 +11,6 @@ public class Order {
     private String mCategory;
     private String mDate;
     private String mAddress;
-    private String mMobile;
     private String mStatus;
 
     public int getId() {
@@ -68,14 +67,6 @@ public class Order {
 
     public void setAddress(String address) {
         mAddress = address;
-    }
-
-    public String getMobile() {
-        return mMobile;
-    }
-
-    public void setMobile(String mobile) {
-        mMobile = mobile;
     }
 
     public String getStatus() {
