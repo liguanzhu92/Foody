@@ -20,8 +20,8 @@
               android:keepScreenOn="true"
               android:textColor="@color/divider"
               android:textSize="50sp"
-              android:layout_marginTop="@dimen/activity_vertical_margin"
-              android:layout_marginLeft="@dimen/activity_horizontal_margin"
+              android:layout_marginTop="50dp"
+              android:layout_marginLeft="50dp"
               android:gravity="top"
               android:text="Foody"/>
 

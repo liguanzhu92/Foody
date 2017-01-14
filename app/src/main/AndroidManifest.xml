@@ -3,7 +3,7 @@
           package="com.example.guanzhuli.foody">
 
     <application
-            android:name=".model.VolleyController"
+            android:name=".controller.VolleyController"
             android:allowBackup="true"
             android:icon="@mipmap/food"
             android:label="@string/app_name"

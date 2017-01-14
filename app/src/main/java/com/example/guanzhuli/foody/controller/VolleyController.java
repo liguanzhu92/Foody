@@ -1,4 +1,4 @@
-package com.example.guanzhuli.foody.model;
+package com.example.guanzhuli.foody.controller;
 
 import android.app.Application;
 import android.text.TextUtils;

@@ -1,4 +1,4 @@
-package com.example.guanzhuli.foody.model;
+package com.example.guanzhuli.foody.controller;
 
 import android.graphics.Bitmap;
 import android.support.v4.util.LruCache;

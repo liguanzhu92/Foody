@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -55,10 +56,10 @@ public class SplashActivity extends AppCompatActivity {
         @Override
         public void run() {
             // Delayed display of UI elements
-            ActionBar actionBar = getSupportActionBar();
+/*            ActionBar actionBar = getSupportActionBar();
             if (actionBar != null) {
                 actionBar.show();
-            }
+            }*/
             mControlsView.setVisibility(View.VISIBLE);
         }
     };
@@ -83,6 +84,7 @@ public class SplashActivity extends AppCompatActivity {
             return false;
         }
     };
+    protected AlphaAnimation fadeIn = new AlphaAnimation(0.0f , 1.0f ) ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,8 +95,9 @@ public class SplashActivity extends AppCompatActivity {
         mVisible = true;
         mControlsView = findViewById(R.id.fullscreen_content_controls);
         mContentView = findViewById(R.id.fullscreen_content);
-
-
+        mContentView.startAnimation(fadeIn);
+        fadeIn.setDuration(4000);
+        fadeIn.setFillAfter(true);
         // Set up the user interaction to manually show or hide the system UI.
         mContentView.setOnClickListener(new View.OnClickListener() {
             @Override
