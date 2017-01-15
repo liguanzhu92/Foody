@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+              android:layout_marginBottom="@dimen/activity_vertical_margin"
+              android:layout_marginTop="@dimen/activity_vertical_margin"
+              android:layout_marginLeft="@dimen/activity_horizontal_margin"
+              android:layout_marginRight="@dimen/activity_horizontal_margin"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical"
+             tools:context="com.example.guanzhuli.foody.HomePage.fragment.HelpFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+            android:layout_alignParentTop="true"
+            android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:layout_above="@+id/help_email_send">
+
+        <TextView
+                android:paddingBottom="@dimen/horizontal_padding"
+                android:paddingTop="@dimen/horizontal_padding"
+                android:text="Call us"
+                android:fontFamily="sans-serif-black"
+                android:textSize="18sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:text="123-123-1234"
+                android:autoLink="phone"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <TextView
+                android:paddingBottom="@dimen/horizontal_padding"
+                android:paddingTop="@dimen/horizontal_padding"
+                android:text="Email:"
+                android:fontFamily="sans-serif-black"
+                android:textSize="18sp"
+                android:layout_width="match_parent" android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/help_email_subject"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:hint="Subject"
+                android:maxEms="200"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        <EditText
+                android:id="@+id/help_email_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:gravity="top"
+                android:hint="Content"
+                android:layout_width="match_parent" android:layout_height="match_parent"/>
+    </LinearLayout>
+    <Button
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/help_email_send"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/icons"
+            android:text="Send"
+            android:fontFamily="sans-serif-black"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"/>
+
+</RelativeLayout>
