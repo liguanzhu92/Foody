@@ -1,5 +1,7 @@
 package com.example.guanzhuli.foody.model;
 
+import android.graphics.Bitmap;
+
 /**
  * Created by Guanzhu Li on 1/13/2017.
  */
@@ -11,6 +13,7 @@ public class Food {
     private String mCategory;
     private String mCity;
     private String mImageUrl;
+    private Bitmap mImage;
 
     public int getId() {
         return mId;
@@ -62,6 +65,14 @@ public class Food {
 
     public String getImageUrl() {
         return mImageUrl;
+    }
+
+    public Bitmap getImage(){
+        return mImage;
+    }
+
+    public void setImage(Bitmap image) {
+        this.mImage = image;
     }
 
     public void setImageUrl(String imageUrl) {

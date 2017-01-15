@@ -20,12 +20,16 @@
                 android:layout_gravity="bottom"
                 android:textSize="32sp"
                 android:text="Location"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/home_TV_Location"
+                android:textStyle="normal|bold" />
         <TextView
                 android:paddingLeft="@dimen/horizontal_padding"
                 android:layout_gravity="bottom"
                 android:text="Not here?"
-                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:id="@+id/home_TV_notHere"
+                android:textStyle="normal|italic" />
     </LinearLayout>
     <!-- our tablayout to display tabs  -->
     <android.support.design.widget.TabLayout
