@@ -9,12 +9,14 @@
             android:gravity="center"
             android:layout_gravity="center"
             android:orientation="horizontal"
-            android:layout_width="match_parent" android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
         <ImageView
                 android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:src="@mipmap/food"
                 android:scaleType="fitCenter"
-                android:layout_width="50dp" android:layout_height="50dp"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"/>
         <TextView
                 android:fontFamily="serif-monospace"
                 android:layout_width="wrap_content"
@@ -51,7 +53,20 @@
                 android:id="@+id/sign_up_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="number"
                 android:hint="Mobile" />
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <EditText
+                android:id="@+id/sign_up_address"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Address"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -64,7 +79,7 @@
                 android:id="@+id/sign_up_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Email" />
+                android:hint="Email"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -102,6 +117,7 @@
             android:layout_marginRight="@dimen/activity_horizontal_margin"
             android:backgroundTint="@color/colorPrimary"
             android:layout_width="match_parent"
+            android:id="@+id/sign_up_btn"
             android:layout_height="60dp"/>
     <LinearLayout
             android:orientation="horizontal"

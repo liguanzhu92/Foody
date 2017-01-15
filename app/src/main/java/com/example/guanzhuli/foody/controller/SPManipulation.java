@@ -7,7 +7,7 @@ import android.content.SharedPreferences;
  * Created by Guanzhu Li on 1/13/2017.
  */
 public class SPManipulation {
-    public static final String PREFS_NAME = "USER";
+    public static final String PREFS_NAME = "USER_INFO";
     public static final String PREFS_KEY_NAME = "NAME";
     public static final String PREFS_KEY_MOBILE = "MOBILE";
     public static final String PREFS_KEY_PWD = "PWD";
@@ -75,16 +75,16 @@ public class SPManipulation {
         return settings.getString(PREFS_KEY_PWD, null);
     }
 
-    public void clearSharedPreference(Context context) {
+    public void clearSharedPreference() {
         editor = settings.edit();
-
         editor.clear();
         editor.commit();
     }
 
-    public void removeValue(Context context, String prefs_key) {
+    public void removeValue(String prefs_key) {
         editor = settings.edit();
         editor.remove(prefs_key);
         editor.commit();
     }
+
 }

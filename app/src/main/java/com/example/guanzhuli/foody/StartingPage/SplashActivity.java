@@ -1,4 +1,4 @@
-package com.example.guanzhuli.foody;
+package com.example.guanzhuli.foody.StartingPage;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import com.example.guanzhuli.foody.HomePage.HomePageActivity;
+import com.example.guanzhuli.foody.R;
+import com.example.guanzhuli.foody.controller.SPManipulation;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -114,7 +117,11 @@ public class SplashActivity extends AppCompatActivity {
         findViewById(R.id.sign_in).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                if (SPManipulation.getInstance(SplashActivity.this).getMobile() == null)
+                    startActivity(new Intent(SplashActivity.this, SignInActivity.class));
+                else {
+                    startActivity(new Intent(SplashActivity.this, HomePageActivity.class));
+                }
             }
         });
     }

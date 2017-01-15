@@ -42,7 +42,8 @@
                 android:id="@+id/sign_in_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Username" />
+            android:inputType="number"
+                android:hint="Mobile" />
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -71,7 +72,8 @@
             android:layout_marginRight="32dp"
             android:backgroundTint="@color/colorPrimary"
             android:layout_width="match_parent"
-            android:layout_height="60dp"/>
+            android:layout_height="60dp"
+        android:id="@+id/sign_in_btn" />
     <LinearLayout
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:orientation="horizontal"

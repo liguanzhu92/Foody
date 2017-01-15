@@ -6,7 +6,7 @@
                                                  android:layout_width="match_parent"
                                                  android:layout_height="match_parent"
                                                  android:fitsSystemWindows="true"
-                                                 tools:context="com.example.guanzhuli.foody.SignInActivity">
+                                                 tools:context="com.example.guanzhuli.foody.StartingPage.SignInActivity">
 
     <android.support.design.widget.AppBarLayout
             android:id="@+id/appbar"

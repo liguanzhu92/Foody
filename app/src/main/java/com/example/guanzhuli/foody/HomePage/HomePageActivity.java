@@ -1,4 +1,4 @@
-package com.example.guanzhuli.foody;
+package com.example.guanzhuli.foody.HomePage;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -12,8 +12,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import com.example.guanzhuli.foody.R;
 
-public class MainActivity extends AppCompatActivity
+public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     @Override
