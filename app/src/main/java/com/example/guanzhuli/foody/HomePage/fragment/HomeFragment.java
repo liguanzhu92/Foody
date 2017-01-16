@@ -39,6 +39,12 @@ public class HomeFragment extends Fragment {
     private TextView locationView;
     private TextView changeLocView;
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getActivity().setTitle("Home");
+    }
+
     public HomeFragment() {
         // Required empty public constructor
     }
