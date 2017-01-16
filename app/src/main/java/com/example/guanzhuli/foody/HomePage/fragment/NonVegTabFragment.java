@@ -64,6 +64,13 @@ public class NonVegTabFragment extends Fragment {
             @Override
             public void onItemClick(View view, String data) {
                 Toast.makeText(getActivity(), "Click At: " + data, Toast.LENGTH_SHORT).show();
+                FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
+                getActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
+                        .replace(R.id.main_fragment_container, foodDetailFragment)
+                        .addToBackStack(AllTabFragment.class.getName())
+                        .commit();
             }
         });
         mRecyclerView.setAdapter(adapter);
@@ -89,7 +96,7 @@ public class NonVegTabFragment extends Fragment {
                         String price = c.getString("FoodPrice");
                         String thumb = c.getString("FoodThumb");
                         final Food curFood = new Food();
-                        curFood.setCategory("veg");
+                        curFood.setCategory("non-veg");
                         curFood.setName(name);
                         curFood.setRecepiee(recepiee);
                         curFood.setPrice(Double.valueOf(price));

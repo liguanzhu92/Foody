@@ -1,0 +1,133 @@
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                 xmlns:tools="http://schemas.android.com/tools"
+                                                 android:layout_width="match_parent"
+                                                 android:layout_height="match_parent"
+                                                 xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                 tools:context="com.example.guanzhuli.foody.HomePage.fragment.FoodDetailFragment">
+    <android.support.design.widget.AppBarLayout
+            android:id="@+id/food_detail_app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay"
+            android:fitsSystemWindows="false">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/food_detail_collapsing_toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="@android:color/transparent"
+                app:expandedTitleMarginStart="48dp"
+                app:expandedTitleMarginEnd="64dp"
+                app:collapsedTitleGravity="bottom"
+                app:expandedTitleMarginBottom="@dimen/activity_vertical_margin"
+                android:fitsSystemWindows="true">
+
+            <ImageView
+                    android:id="@+id/food_detail_image"
+                    android:src="@drawable/food_sample"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scaleType="centerCrop"
+                    android:fitsSystemWindows="true"
+                    app:layout_collapseMode="parallax"/>
+
+            <android.support.v7.widget.Toolbar
+                    android:id="@+id/food_detail_toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    app:layout_collapseMode="pin" />
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <!-- TODO: Update blank fragment layout -->
+    <android.support.v4.widget.NestedScrollView
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:minHeight="300dp"
+            android:paddingTop="20dp"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        <LinearLayout
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:orientation="vertical"
+                android:layout_width="match_parent" android:layout_height="match_parent">
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="ID :"/>
+                <TextView
+                        android:id="@+id/food_detail_id"
+                        android:text="food id"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
+                <TextView
+                        android:textStyle="bold"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Category :"/>
+                <TextView
+                        android:id="@+id/food_detail_category"
+                        android:text="Veg/ Non Veg"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+            </LinearLayout>
+            <TextView
+                    android:textStyle="bold"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:text="Recipe:"/>
+            <TextView
+                    android:id="@+id/food_detail_recipe"
+                    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:text="food recipe"/>
+            <TextView
+                    android:id="@+id/food_detail_price"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:textSize="26sp"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="0dp"
+                    android:text="300.00"/>
+            <RelativeLayout android:layout_width="match_parent"
+                            android:gravity="bottom"
+                            android:layout_weight="4"
+                            android:layout_height="0dp">
+                <Button
+                        android:id="@+id/food_detail_add"
+                        android:layout_marginTop="@dimen/activity_vertical_margin"
+                        android:text="Add to Cart"
+                        android:textColor="@color/icons"
+                        android:backgroundTint="@color/colorPrimary"
+                        android:layout_width="match_parent" android:layout_height="wrap_content"/>
+            </RelativeLayout>
+        </LinearLayout>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>

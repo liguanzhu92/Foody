@@ -1,0 +1,29 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+             tools:context="com.example.guanzhuli.foody.CartPage.fragment.AdressFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <FrameLayout
+            android:layout_above="@+id/addr_continue"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    <Button android:layout_above="@+id/addr_back"
+            android:textColor="@color/icons"
+            android:backgroundTint="@color/colorPrimary"
+            android:id="@+id/addr_continue"
+            android:text="Checkout"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+    <Button
+            android:layout_alignParentBottom="true"
+            android:id="@+id/addr_back"
+            android:text="Back"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+</RelativeLayout>

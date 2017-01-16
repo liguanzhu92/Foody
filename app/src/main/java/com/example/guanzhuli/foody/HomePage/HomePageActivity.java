@@ -2,6 +2,7 @@ package com.example.guanzhuli.foody.HomePage;
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.example.guanzhuli.foody.CartPage.CartActivity;
 import com.example.guanzhuli.foody.HomePage.fragment.*;
 import com.example.guanzhuli.foody.R;
 
@@ -60,8 +62,7 @@ public class HomePageActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                startActivity(new Intent(HomePageActivity.this, CartActivity.class));
             }
         });
 

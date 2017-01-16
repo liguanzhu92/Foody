@@ -1,4 +1,4 @@
-package com.example.guanzhuli.foody.HomePage.fragment;
+package com.example.guanzhuli.foody.CartPage.fragment;
 
 
 import android.os.Bundle;
@@ -9,21 +9,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.guanzhuli.foody.HomePage.adapter.HistoryAdapter;
+import com.example.guanzhuli.foody.CartPage.adapter.CartAdapter;
 import com.example.guanzhuli.foody.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class HistoryFragment extends Fragment {
+public class CartFragment extends Fragment {
     private RecyclerView mRecyclerView;
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle("History");
-    }
 
-    public HistoryFragment() {
+    public CartFragment() {
         // Required empty public constructor
     }
 
@@ -32,10 +27,9 @@ public class HistoryFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_history, container, false);
-        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_history);
-        HistoryAdapter adapter = new HistoryAdapter(getContext());
-        mRecyclerView.setAdapter(adapter);
+        View view =  inflater.inflate(R.layout.fragment_cart, container, false);
+        mRecyclerView = (RecyclerView) view.findViewById(R.id.recyclerview_cart);
+        mRecyclerView.setAdapter(new CartAdapter(getContext()));
         mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         return view;

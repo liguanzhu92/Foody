@@ -1,0 +1,82 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             tools:context="com.example.guanzhuli.foody.CartPage.fragment.CheckoutFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+            android:id="@+id/checkout_linear1"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+                android:textSize="18sp"
+                android:text="Mobile:"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView
+                android:textSize="18sp"
+                android:id="@+id/checkout_mobile"
+                android:text="6143136377"
+                android:layout_marginRight="@dimen/horizontal_padding"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView
+                android:textSize="12sp"
+                android:text="not this?"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:layout_marginTop="@dimen/horizontal_padding"
+            android:layout_below="@+id/checkout_linear1"
+            android:id="@+id/checkout_linear2"
+            android:orientation="horizontal"
+            android:layout_width="wrap_content" android:layout_height="wrap_content">
+        <TextView
+                android:textSize="18sp"
+                android:text="Address:"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView
+                android:textSize="18sp"
+                android:id="@+id/checkout_address"
+                android:text=" 1840 wessel ct"
+                android:layout_marginRight="@dimen/horizontal_padding"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+        <TextView
+                android:textSize="12sp"
+                android:text="not this?"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerview_checkout"
+            android:layout_marginTop="@dimen/horizontal_padding"
+            android:layout_below="@+id/checkout_linear2"
+            android:layout_above="@+id/checkout_total"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    <TextView
+            android:textSize="26sp"
+            android:text="4000.00"
+            android:gravity="end"
+            android:textColor="@color/colorPrimaryDark"
+            android:layout_above="@+id/checkout_pay"
+            android:id="@+id/checkout_total"
+            android:layout_width="match_parent" android:layout_height="wrap_content"/>
+
+    <Button
+            android:layout_marginTop="@dimen/horizontal_padding"
+            android:layout_above="@+id/checkout_cancel"
+            android:id="@+id/checkout_pay"
+            android:backgroundTint="@color/colorPrimary"
+            android:textColor="@color/icons"
+            android:text="Place order"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <Button
+            android:text="Cancel"
+            android:layout_alignParentBottom="true"
+            android:id="@+id/checkout_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+</RelativeLayout>
