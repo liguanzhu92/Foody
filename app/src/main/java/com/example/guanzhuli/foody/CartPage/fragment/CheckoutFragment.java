@@ -100,6 +100,7 @@ public class CheckoutFragment extends Fragment {
         mTextMobile = (TextView) view.findViewById(R.id.checkout_mobile);
         mTextMobile.setText(SPManipulation.getInstance(getActivity()).getMobile());
         mTextAddress = (TextView) view.findViewById(R.id.checkout_address);
+        mTextAddress.setText(SPManipulation.getInstance(getContext()).getAddress());
         mTextTotal = (TextView) view.findViewById(R.id.checkout_total);
         mTextEditMobil = (TextView) view.findViewById(R.id.checkout_edit_mobile);
         mTextEditMobil.setOnClickListener(new View.OnClickListener() {
@@ -130,6 +131,7 @@ public class CheckoutFragment extends Fragment {
             }
         });
         mTextEditAddress = (TextView) view.findViewById(R.id.checkout_edit_addr);
+
         mTextEditAddress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -248,7 +250,7 @@ public class CheckoutFragment extends Fragment {
             Log.e("PRICE & NUMBER", "price: " + curFood.getPrice() + ", number: " + curFoodNumber);
             items[position] = new PayPalItem("Item No." + curFood.getId(),
                     curFoodNumber,
-                    new BigDecimal(String.valueOf(curFood.getPrice()/100)),
+                    new BigDecimal(String.valueOf(curFood.getPrice())),
                     "USD",
                     curFood.getName()
             );

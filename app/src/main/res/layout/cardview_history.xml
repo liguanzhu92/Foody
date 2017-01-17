@@ -103,17 +103,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"/>
-            <TextView
-                    android:textColor="@color/icons"
-                    android:layout_marginRight="@dimen/horizontal_padding"
-                    android:background="@drawable/badge_rec"
-                    android:id="@+id/history_update"
-                    android:clickable="true"
-                    android:gravity="center"
-                    android:text="Update"
-                    android:layout_weight="1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"/>
+
             <TextView
                     android:textColor="@color/icons"
                     android:background="@drawable/badge_rec"

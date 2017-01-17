@@ -8,14 +8,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.example.guanzhuli.foody.CartPage.CartActivity;
 import com.example.guanzhuli.foody.CartPage.fragment.CartFragment;
 import com.example.guanzhuli.foody.HomePage.HomePageActivity;
 import com.example.guanzhuli.foody.HomePage.adapter.AllFoodAdapter;
 import com.example.guanzhuli.foody.R;
 import com.example.guanzhuli.foody.controller.ShoppingCartItem;
+import com.example.guanzhuli.foody.controller.VolleyController;
 import com.example.guanzhuli.foody.model.Food;
 
 /**

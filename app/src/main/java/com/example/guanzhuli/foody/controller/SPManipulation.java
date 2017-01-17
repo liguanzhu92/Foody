@@ -12,6 +12,7 @@ public class SPManipulation {
     public static final String PREFS_KEY_MOBILE = "MOBILE";
     public static final String PREFS_KEY_PWD = "PWD";
     public static final String PREFS_KEY_EMAIL = "EMAIL";
+    public static final String PREFS_KEY_ADDRESS = "ADDRESS";
     Context mContext;
     SharedPreferences settings;
     SharedPreferences.Editor editor;
@@ -46,6 +47,11 @@ public class SPManipulation {
         editor.putString(PREFS_KEY_EMAIL, text); //3
         editor.commit(); //4
     }
+    public void setAddress(String text) {
+        editor = settings.edit(); //2
+        editor.putString(PREFS_KEY_ADDRESS, text); //3
+        editor.commit(); //4
+    }
 
     public void setName(String text) {
         editor = settings.edit(); //2
@@ -65,6 +71,10 @@ public class SPManipulation {
 
     public String getEmail() {
         return settings.getString(PREFS_KEY_EMAIL, null);
+    }
+
+    public String getAddress() {
+        return settings.getString(PREFS_KEY_ADDRESS, null);
     }
 
     public String getName() {

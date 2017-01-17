@@ -28,8 +28,11 @@ import com.example.guanzhuli.foody.R;
 import com.example.guanzhuli.foody.StartingPage.SignInActivity;
 import com.example.guanzhuli.foody.controller.SPManipulation;
 import com.example.guanzhuli.foody.controller.VolleyController;
-
-import com.facebook.*;
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 import com.google.android.gms.auth.api.Auth;
@@ -41,6 +44,8 @@ import com.google.android.gms.common.SignInButton;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.OptionalPendingResult;
 import com.google.android.gms.common.api.ResultCallback;
+
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -51,28 +56,38 @@ import java.util.Map;
 /**
  * Created by Guanzhu Li on 1/13/2017.
  */
-public class SignInFragment extends Fragment implements
-        GoogleApiClient.OnConnectionFailedListener {
+public class SignInFragment extends Fragment implements GoogleApiClient.OnConnectionFailedListener{
 
     // Declare all views name;
     View view;
-    Button btn_signIn, mFbButtonSignIn;
+    //    Button btn_signIn;
     EditText mobile, password;
     TextView toSignUp;
+
     LoginButton mLoginButton;
     SPManipulation mSPManipulation;
     CallbackManager callbackManager;
     private GoogleApiClient mGoogleApiClient;
     private SignInButton btnSignIn;
     private static final int RC_SIGN_IN = 007;
+    Button btn_signIn, mFbButtonSignIn;
+
+
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        fbGoogleSignIn();
+        init();
+        return view;
+    }
+
+
+    private void fbGoogleSignIn(){
         mFbButtonSignIn = (Button) view.findViewById(R.id.button_fb_sign_in);
-        /*-----------google sign in---------------*/
+                /*-----------google sign in---------------*/
         btnSignIn = (SignInButton) view.findViewById(R.id.btn_sign_in);
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -89,7 +104,7 @@ public class SignInFragment extends Fragment implements
                 startActivityForResult(signInIntent, RC_SIGN_IN);
             }
         });
-        /*---------------fb sign in-------------------*/
+                /*---------------fb sign in-------------------*/
         mFbButtonSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,8 +158,6 @@ public class SignInFragment extends Fragment implements
                 Log.i("fblogin", "fb log in error");
             }
         });
-        init();
-        return view;
     }
 
     @Override
@@ -183,6 +196,18 @@ public class SignInFragment extends Fragment implements
         }
     }
 
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+
+
     private void init(){
         // Init all views
         mobile = (EditText) view.findViewById(R.id.sign_in_username);
@@ -206,6 +231,11 @@ public class SignInFragment extends Fragment implements
         });
     }
 
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
+    }
+
 
 
     // Set Default URL and Json
@@ -223,6 +253,17 @@ public class SignInFragment extends Fragment implements
                     public void onResponse(String response) {
                         Log.e(TAG, "Response --> " + response);
                         if (response.toString().contains("success")){
+                            try {
+                                JSONArray jsonArray = new JSONArray(response);
+                                Log.e("JSON", jsonArray.toString());
+                                JSONObject userInfo = jsonArray.getJSONObject(0);
+                                Log.e("JSON", userInfo.toString());
+                                SPManipulation.getInstance(getContext()).setName(userInfo.getString("UserName"));
+                                SPManipulation.getInstance(getContext()).setEmail(userInfo.getString("UserEmail"));
+                                SPManipulation.getInstance(getContext()).setAddress(userInfo.getString("UserAddress"));
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
                             Toast.makeText(getContext(), "Login successful!", Toast.LENGTH_SHORT).show();
                             SPManipulation.getInstance(getContext()).setMobile(mobile.getText().toString());
                             SPManipulation.getInstance(getContext()).setPwd(password.getText().toString());
@@ -252,20 +293,5 @@ public class SignInFragment extends Fragment implements
             }
         };
         VolleyController.getInstance().addToRequestQueue(stringRequest, TAG);
-    }
-
-    @Override
-    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        callbackManager.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == RC_SIGN_IN) {
-            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            handleSignInResult(result);
-        }
-    }
-
-    @Override
-    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 }

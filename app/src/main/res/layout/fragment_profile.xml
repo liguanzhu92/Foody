@@ -98,6 +98,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"/>
         <TextView
+                android:id="@+id/profile_update_pwd"
                 android:clickable="true"
                 android:textSize="12sp"
                 android:text="Update"
@@ -129,10 +130,12 @@
             <TextView
                     android:text="Old Password:"
                     android:layout_weight="2"
-                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:id="@+id/profile_tv_pwd" />
             <EditText
+                    android:id="@+id/profile_oldpwd"
                     android:hint="Old Password"
-                    android:layout_weight="4.5"
+                    android:layout_weight="5.5"
                     android:layout_width="0dp" android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
@@ -143,10 +146,12 @@
             <TextView
                     android:text="New Password:"
                     android:layout_weight="2"
-                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:id="@+id/profile_tv_newpwd" />
             <EditText
+                    android:id="@+id/profile_newpwd"
                     android:hint="New Password"
-                    android:layout_weight="4.5"
+                    android:layout_weight="5.5"
                     android:layout_width="0dp" android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
@@ -155,19 +160,23 @@
                 android:orientation="horizontal"
                 android:layout_width="match_parent" android:layout_height="wrap_content">
             <TextView
-                    android:text="Retype Password:"
+                    android:text="Retype:"
                     android:layout_weight="2"
-                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+                    android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:id="@+id/profile_tv_repwd" />
             <EditText
+                    android:id="@+id/profile_newpwd2"
                     android:hint="Retype Password"
-                    android:layout_weight="4.5"
+                    android:layout_weight="5.5"
                     android:layout_width="0dp" android:layout_height="wrap_content"/>
         </LinearLayout>
         <LinearLayout
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:padding="@dimen/horizontal_padding"
                 android:orientation="horizontal"
                 android:layout_width="match_parent" android:layout_height="wrap_content">
             <Button
+                    android:id="@+id/profile_confirm_button"
                     android:textColor="@color/icons"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="Update"
@@ -175,6 +184,7 @@
                     android:layout_weight="1"
                     android:layout_width="0dp" android:layout_height="wrap_content"/>
             <Button
+                    android:id="@+id/profile_cancel_button"
                     android:textColor="@color/icons"
                     android:backgroundTint="@color/colorPrimary"
                     android:text="Cancel"

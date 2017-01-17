@@ -60,13 +60,6 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
             }
         });
 
-        holder.btn_update.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
-
         holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +83,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
 
 class HistoryHolder extends RecyclerView.ViewHolder {
     TextView mTextId, mTextName, mTextQuantity, mTextTotal, mTextDate, mTextAddress, mTextStatus;
-    TextView btn_track, btn_update, btn_cancel;
+    TextView btn_track, btn_cancel;
     public HistoryHolder(View itemView) {
         super(itemView);
         mTextId = (TextView) itemView.findViewById(R.id.history_id);
@@ -101,7 +94,6 @@ class HistoryHolder extends RecyclerView.ViewHolder {
         mTextAddress = (TextView) itemView.findViewById(R.id.history_address);
 
         btn_track = (TextView) itemView.findViewById(R.id.history_track);
-        btn_update = (TextView) itemView.findViewById(R.id.history_update);
         btn_cancel = (TextView) itemView.findViewById(R.id.history_cancel);
 
 //        mTextStatus = (TextView) itemView.findViewById(R.id.history_status);
