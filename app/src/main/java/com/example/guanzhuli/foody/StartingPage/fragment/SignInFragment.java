@@ -5,6 +5,7 @@ import android.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -28,6 +29,18 @@ import com.example.guanzhuli.foody.StartingPage.SignInActivity;
 import com.example.guanzhuli.foody.controller.SPManipulation;
 import com.example.guanzhuli.foody.controller.VolleyController;
 
+import com.facebook.*;
+import com.facebook.login.LoginResult;
+import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.SignInButton;
+import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.OptionalPendingResult;
+import com.google.android.gms.common.api.ResultCallback;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -38,22 +51,136 @@ import java.util.Map;
 /**
  * Created by Guanzhu Li on 1/13/2017.
  */
-public class SignInFragment extends Fragment {
+public class SignInFragment extends Fragment implements
+        GoogleApiClient.OnConnectionFailedListener {
 
     // Declare all views name;
     View view;
-    Button btn_signIn;
+    Button btn_signIn, mFbButtonSignIn;
     EditText mobile, password;
     TextView toSignUp;
-
+    LoginButton mLoginButton;
+    SPManipulation mSPManipulation;
+    CallbackManager callbackManager;
+    private GoogleApiClient mGoogleApiClient;
+    private SignInButton btnSignIn;
+    private static final int RC_SIGN_IN = 007;
 
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_sign_in, container, false);
+        mFbButtonSignIn = (Button) view.findViewById(R.id.button_fb_sign_in);
+        /*-----------google sign in---------------*/
+        btnSignIn = (SignInButton) view.findViewById(R.id.btn_sign_in);
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        mGoogleApiClient = new GoogleApiClient.Builder(getActivity())
+                .enableAutoManage(getActivity(), this)
+                .addApi(Auth.GOOGLE_SIGN_IN_API, gso)
+                .build();
+        btnSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
+                startActivityForResult(signInIntent, RC_SIGN_IN);
+            }
+        });
+        /*---------------fb sign in-------------------*/
+        mFbButtonSignIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mLoginButton.performClick();
+            }
+        });
+        //mLoginButton = (LoginButton) view.findViewById(R.id.login_button);
+        mLoginButton = new LoginButton(getContext());
+        mLoginButton.setReadPermissions("email");
+        // If using in a fragment
+        mLoginButton.setFragment(this);
+        // Other app specific specialization
+        callbackManager = CallbackManager.Factory.create();
+        // Callback registration
+        mLoginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                Log.e("fblogin", "success");
+                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(JSONObject object, GraphResponse response) {
+                                try {
+                                    String id = object.getString("id");
+                                    Log.e("fblogin", id);
+                                    mSPManipulation = SPManipulation.getInstance(getContext());
+                                    mSPManipulation.setMobile(id);
+                                    Intent intent = new Intent(getActivity(), HomePageActivity.class);
+                                    startActivity(intent);
+                                } catch (JSONException e) {
+                                    e.printStackTrace();
+                                }
+
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id");
+                request.setParameters(parameters);
+                request.executeAsync();
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.i("fblogin", "fb log in error");
+            }
+        });
         init();
         return view;
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        OptionalPendingResult<GoogleSignInResult> opr = Auth.GoogleSignInApi.silentSignIn(mGoogleApiClient);
+        if (opr.isDone()) {
+            // If the user's cached credentials are valid, the OptionalPendingResult will be "done"
+            // and the GoogleSignInResult will be available instantly.
+            Log.d(TAG, "Got cached sign-in");
+            GoogleSignInResult result = opr.get();
+            handleSignInResult(result);
+        } else {
+            // If the user has not previously signed in on this device or the sign-in has expired,
+            // this asynchronous branch will attempt to sign in the user silently.  Cross-device
+            // single sign-on will occur in this branch.
+            opr.setResultCallback(new ResultCallback<GoogleSignInResult>() {
+                @Override
+                public void onResult(GoogleSignInResult googleSignInResult) {
+                    handleSignInResult(googleSignInResult);
+                }
+            });
+        }
+    }
+
+    private void handleSignInResult(GoogleSignInResult result) {
+        Log.d(TAG, "handleSignInResult:" + result.isSuccess());
+        if (result.isSuccess()) {
+            // Signed in successfully, show authenticated UI.
+            GoogleSignInAccount acct = result.getSignInAccount();
+            // start anotger activity
+            Intent intent = new Intent(getActivity(), HomePageActivity.class);
+            startActivity(intent);
+        } else {
+            // Signed out, show unauthenticated UI.
+        }
     }
 
     private void init(){
@@ -125,5 +252,20 @@ public class SignInFragment extends Fragment {
             }
         };
         VolleyController.getInstance().addToRequestQueue(stringRequest, TAG);
+    }
+
+    @Override
+    public void onActivityResult(final int requestCode, final int resultCode, final Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == RC_SIGN_IN) {
+            GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
+            handleSignInResult(result);
+        }
+    }
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Log.d(TAG, "onConnectionFailed:" + connectionResult);
     }
 }

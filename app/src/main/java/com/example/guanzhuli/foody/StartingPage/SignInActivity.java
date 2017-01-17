@@ -1,5 +1,6 @@
 package com.example.guanzhuli.foody.StartingPage;
 
+import com.facebook.FacebookSdk;
 import android.app.ProgressDialog;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,7 @@ public class SignInActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_sign_in);
 
         pDialog = new ProgressDialog(this);

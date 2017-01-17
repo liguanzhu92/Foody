@@ -16,19 +16,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import com.example.guanzhuli.foody.CartPage.CartActivity;
 import com.example.guanzhuli.foody.HomePage.fragment.*;
 import com.example.guanzhuli.foody.R;
+import com.example.guanzhuli.foody.StartingPage.SplashActivity;
+import com.example.guanzhuli.foody.controller.SPManipulation;
+import com.facebook.login.LoginManager;
+import com.google.android.gms.auth.api.Auth;
+import com.google.android.gms.common.api.GoogleApiClient;
 
 public class HomePageActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static ProgressDialog pDialog;
-
-
+    GoogleApiClient mGoogleApiClient;
     public static String City;
 
     @Override
@@ -144,6 +146,13 @@ public class HomePageActivity extends AppCompatActivity
                 break;
             case R.id.nav_rate:
                 break;
+            case R.id.nav_logout:
+                // Auth.GoogleSignInApi.signOut(googleApiClient);
+                LoginManager.getInstance().logOut();
+                SPManipulation.getInstance(this).clearSharedPreference();
+                Intent splash = new Intent(this, SplashActivity.class);
+                startActivity(splash);
+                finish();
             default:
                 break;
         }

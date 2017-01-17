@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "945795497085",
+    "project_id": "foody-ccf79"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:945795497085:android:3d83938518e7e897",
+        "android_client_info": {
+          "package_name": "com.example.guanzhuli.foody"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "945795497085-d1vpoomn1gipm6k99m348t5c6blmigar.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.guanzhuli.foody",
+            "certificate_hash": "3A9F3D68F7E8EF9C239EBFAB2E20B219855EF3D0"
+          }
+        },
+        {
+          "client_id": "945795497085-nkd44j8bbj5mauk64vm4s33nbrk24c7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDb91ffer13-lNsGutoX06aPPRiHfYqTz4"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
