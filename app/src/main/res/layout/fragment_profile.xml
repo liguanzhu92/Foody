@@ -1,13 +1,185 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             xmlns:tools="http://schemas.android.com/tools"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent"
-             tools:context="com.example.guanzhuli.foody.HomePage.fragment.ProfileFragment">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              tools:context="com.example.guanzhuli.foody.HomePage.fragment.ProfileFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="@string/hello_blank_fragment"/>
+    <LinearLayout
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/horizontal_padding"
+            android:padding="@dimen/horizontal_padding"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <ImageView
+                android:src="@mipmap/food"
+                android:scaleType="fitCenter"
+                android:layout_width="50dp" android:layout_height="50dp"/>
+        <TextView
+                android:fontFamily="serif-monospace"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/divider"
+                android:textSize="46sp"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:text="Foody"/>
 
-</FrameLayout>
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_marginTop="@dimen/horizontal_padding"
+            android:padding="@dimen/horizontal_padding"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView
+                android:textSize="18sp"
+                android:text="Mobile:"
+                android:layout_weight="1.4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:textSize="18sp"
+                android:id="@+id/profile_mobile"
+                android:text="6143136377"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/profile_update_mobile"
+                android:clickable="true"
+                android:textSize="12sp"
+                android:text="Update"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:padding="@dimen/horizontal_padding"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView
+                android:textSize="18sp"
+                android:text="Address:"
+                android:layout_weight="1.4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/profile_address"
+                android:textSize="18sp"
+                android:text="1840 wessel ct"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:id="@+id/profile_update_address"
+                android:clickable="true"
+                android:textSize="12sp"
+                android:text="Update"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:padding="@dimen/horizontal_padding"
+            android:orientation="horizontal"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <TextView
+                android:textSize="18sp"
+                android:text="Password:"
+                android:layout_weight="1.4"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:textSize="18sp"
+                android:text="***********"
+                android:layout_weight="3"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+        <TextView
+                android:clickable="true"
+                android:textSize="12sp"
+                android:text="Update"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"/>
+    </LinearLayout>
+    <LinearLayout
+            android:id="@+id/profile_pwd_linear"
+            android:orientation="vertical"
+            android:layout_width="match_parent" android:layout_height="wrap_content">
+        <LinearLayout
+                android:paddingTop="@dimen/activity_vertical_margin"
+                android:paddingBottom="@dimen/activity_vertical_margin"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <View
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/colorPrimary"/>
+        </LinearLayout>
+        <LinearLayout
+                android:paddingLeft="@dimen/horizontal_padding"
+                android:paddingRight="@dimen/horizontal_padding"
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="Old Password:"
+                    android:layout_weight="2"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+            <EditText
+                    android:hint="Old Password"
+                    android:layout_weight="4.5"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+                android:paddingLeft="@dimen/horizontal_padding"
+                android:paddingRight="@dimen/horizontal_padding"
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="New Password:"
+                    android:layout_weight="2"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+            <EditText
+                    android:hint="New Password"
+                    android:layout_weight="4.5"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+                android:paddingLeft="@dimen/horizontal_padding"
+                android:paddingRight="@dimen/horizontal_padding"
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <TextView
+                    android:text="Retype Password:"
+                    android:layout_weight="2"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+            <EditText
+                    android:hint="Retype Password"
+                    android:layout_weight="4.5"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+        </LinearLayout>
+        <LinearLayout
+                android:padding="@dimen/horizontal_padding"
+                android:orientation="horizontal"
+                android:layout_width="match_parent" android:layout_height="wrap_content">
+            <Button
+                    android:textColor="@color/icons"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Update"
+                    android:layout_marginRight="@dimen/activity_horizontal_margin"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+            <Button
+                    android:textColor="@color/icons"
+                    android:backgroundTint="@color/colorPrimary"
+                    android:text="Cancel"
+                    android:layout_weight="1"
+                    android:layout_width="0dp" android:layout_height="wrap_content"/>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

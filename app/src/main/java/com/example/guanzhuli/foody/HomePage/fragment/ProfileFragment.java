@@ -7,12 +7,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import com.example.guanzhuli.foody.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class ProfileFragment extends Fragment {
+    private TextView mTextMobile, mTextAddress;
+    private TextView mTextUpdateMobile, mTextUpdateAddress, mTextUpdatePwd;
+    private EditText mEditOldPwd, mEditNewPwd, mEditNewPwd2;
+    private Button mButtonUpdate, mButtonCancel;
+    private LinearLayout mLinearPwd;
 
     @Override
     public void onResume() {
