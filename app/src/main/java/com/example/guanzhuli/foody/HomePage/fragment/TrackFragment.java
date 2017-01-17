@@ -3,6 +3,7 @@ package com.example.guanzhuli.foody.HomePage.fragment;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.guanzhuli.foody.HomePage.HomePageActivity;
 import com.example.guanzhuli.foody.R;
+import com.example.guanzhuli.foody.controller.VolleyController;
+import com.example.guanzhuli.foody.model.Food;
+import com.example.guanzhuli.foody.model.Order;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -26,6 +42,13 @@ public class TrackFragment extends Fragment {
     private TextView mTextID, mTextDate, mTextTotal, mTextStatus;
     private ImageView mImageStatus;
 
+    private View fragView;
+
+    private final String baseUrl = "http://rjtmobile.com/ansari/fos/fosapp/order_track.php?&order_id=";
+
+    private int orderId;
+    private Order order;
+
     private final int[] imageResources = {R.mipmap.pack, R.mipmap.delivery, R.mipmap.fork, R.mipmap.alert};
     @Override
     public void onResume() {
@@ -35,7 +58,6 @@ public class TrackFragment extends Fragment {
 
     public TrackFragment() {
         // Required empty public constructor
-
     }
 
 
@@ -43,28 +65,87 @@ public class TrackFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_track, container, false);
+        fragView = inflater.inflate(R.layout.fragment_track, container, false);
 
-        mEditOrderSearch = (EditText) view.findViewById(R.id.track_edit_search);
-        mTextSearch = (TextView) view.findViewById(R.id.track_search);
+
+        mEditOrderSearch = (EditText) fragView.findViewById(R.id.track_edit_search);
+        mTextSearch = (TextView) fragView.findViewById(R.id.track_search);
+
+        order = new Order();
+
+        mLinearLayout = (LinearLayout) fragView.findViewById(R.id.track_detail_block);
         mTextSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                String orderId = mEditOrderSearch.getText().toString();
-                mLinearLayout.setVisibility(View.VISIBLE);
+                try{
+                    orderId = Integer.valueOf(mEditOrderSearch.getText().toString().trim());
+                    mLinearLayout.setVisibility(View.VISIBLE);
+                    getData(fragView);
                 /*--------insert code to get data---*/
-                displayData(view);
+                }catch (Exception e){
+                    e.printStackTrace();
+                    Log.e("ERROR", e.toString());
+                    Toast.makeText(getActivity(), "Wrong Id Format. Please Try Again!", Toast.LENGTH_SHORT).show();
+                }
+
             }
         });
-        mLinearLayout = (LinearLayout) view.findViewById(R.id.track_detail_block);
-        Bundle bundle = this.getArguments();
-        if (bundle != null) {
+
+
+        Bundle orderBundle = this.getArguments();
+        if (orderBundle != null) {
+            orderId = orderBundle.getInt("OrderId");
+            getData(fragView);
             mLinearLayout.setVisibility(View.VISIBLE);
-            displayData(view);
         } else {
             mLinearLayout.setVisibility(View.INVISIBLE);
         }
-        return view;
+        return fragView;
+    }
+
+    private void getData(final View view){
+        final String TAG = "TRACK_FRAGMENT";
+        HomePageActivity.showPDialog();
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, buildUrl(), null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject jsonObject) {
+                Log.d(TAG, jsonObject.toString());
+
+                try{
+                    JSONArray orderArray = jsonObject.getJSONArray("Order Detail");
+                    for (int i = 0; i < orderArray.length(); i++) {
+                        JSONObject c = orderArray.getJSONObject(i);
+
+                        int id = c.getInt("OrderId");
+                        double totalOrder = c.getDouble("TotalOrder");
+                        String status = c.getString("OrderStatus");
+                        String date = c.getString("OrderDate");
+
+                        order.setId(id);
+                        order.setTotal(totalOrder);
+                        order.setStatus(status);
+                        order.setDate(date);
+                    }
+                    displayData(view);
+                }catch (Exception e){
+                    System.out.println(e);
+                }
+                HomePageActivity.disPDialog();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError volleyError) {
+                VolleyLog.d(TAG, "ERROR" + volleyError.getMessage());
+                Toast.makeText(getActivity(), volleyError.getMessage(), Toast.LENGTH_SHORT).show();
+                HomePageActivity.disPDialog();
+            }
+        });
+        Log.e("URL", jsonObjReq.getUrl());
+        VolleyController.getInstance().addToRequestQueue(jsonObjReq);
+    }
+
+    private String buildUrl() {
+        return baseUrl + orderId;
     }
 
     private void displayData(View view) {
@@ -74,6 +155,13 @@ public class TrackFragment extends Fragment {
         mTextStatus = (TextView) view.findViewById(R.id.track_status);
         mImageStatus = (ImageView) view.findViewById(R.id.track_image_status);
         /*------using parseWord to get the string, parseImage to get the resource id-----*/
+
+        mTextID.setText("" + order.getId());
+        mTextDate.setText(order.getDate());
+        mTextTotal.setText("" + order.getTotal());
+        mTextStatus.setText(parseWord(order.getStatus()));
+        mImageStatus.setImageResource(parseImage(order.getStatus()));
+
     }
 
     private String parseWord(String s) {

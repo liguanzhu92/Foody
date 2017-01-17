@@ -2,27 +2,30 @@ package com.example.guanzhuli.foody.HomePage.adapter;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
-import com.example.guanzhuli.foody.HomePage.fragment.HistoryFragment;
+
+import com.example.guanzhuli.foody.HomePage.HomePageActivity;
+import com.example.guanzhuli.foody.HomePage.fragment.AllTabFragment;
 import com.example.guanzhuli.foody.HomePage.fragment.TrackFragment;
 import com.example.guanzhuli.foody.R;
+import com.example.guanzhuli.foody.model.Order;
+
+import java.util.ArrayList;
 
 /**
  * Created by Guanzhu Li on 1/15/2017.
  */
-public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder> {
+public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
     private Context mContext;
-    private FragmentActivity mActivity;
+    private ArrayList<Order> orders;
 
-    public HistoryAdapter(Context context) {
-        mActivity = (FragmentActivity)context;
+    public HistoryAdapter(Context context, ArrayList<Order> orders) {
         mContext = context;
+        this.orders = orders;
     }
 
     @Override
@@ -33,48 +36,61 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder> {
     }
 
     @Override
-    public void onBindViewHolder(HistoryHolder holder, int position) {
-        holder.mTextTrack.setOnClickListener(new View.OnClickListener() {
+    public void onBindViewHolder(HistoryHolder holder, final int position) {
+        holder.mTextId.setText("" + orders.get(position).getId());
+        holder.mTextName.setText(orders.get(position).getName());
+        holder.mTextQuantity.setText("" + orders.get(position).getQuantity());
+        holder.mTextTotal.setText("" + orders.get(position).getTotal());
+        holder.mTextDate.setText("" + orders.get(position).getDate());
+        holder.mTextAddress.setText(orders.get(position).getAddress());
+
+        holder.btn_track.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mActivity, "track", Toast.LENGTH_SHORT).show();
-                TrackFragment trackFragment = new TrackFragment();
                 Bundle bundle = new Bundle();
-                bundle.putString("test", "test");
-                trackFragment.setArguments(bundle);
-                mActivity.getSupportFragmentManager()
+                bundle.putInt("OrderId", orders.get(position).getId());
+                TrackFragment trackFrag = new TrackFragment();
+                trackFrag.setArguments(bundle);
+                ((HomePageActivity) mContext).getSupportFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)
-                        .replace(R.id.main_fragment_container, trackFragment)
-                        .addToBackStack(HistoryFragment.class.getName())
+                        .replace(R.id.main_fragment_container, trackFrag)
+                        .addToBackStack(AllTabFragment.class.getName())
                         .commit();
             }
         });
 
-        holder.mTextUpdate.setOnClickListener(new View.OnClickListener() {
+        holder.btn_update.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mActivity, "update address", Toast.LENGTH_SHORT).show();
+
             }
         });
 
-        holder.mTextCancel.setOnClickListener(new View.OnClickListener() {
+        holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(mActivity, "cancel", Toast.LENGTH_SHORT).show();
+
             }
         });
+
+    }
+
+    public void notifyData(ArrayList<Order> orders) {
+//        Log.d("notifyData ", foods.size() + "");
+        this.orders = orders;
+        notifyDataSetChanged();
     }
 
     @Override
     public int getItemCount() {
-        return 3;
+        return orders.size();
     }
 }
 
 class HistoryHolder extends RecyclerView.ViewHolder {
-    TextView mTextId, mTextName, mTextQuantity, mTextTotal, mTextDate, mTextAddress;
-    TextView mTextTrack, mTextUpdate, mTextCancel;
+    TextView mTextId, mTextName, mTextQuantity, mTextTotal, mTextDate, mTextAddress, mTextStatus;
+    TextView btn_track, btn_update, btn_cancel;
     public HistoryHolder(View itemView) {
         super(itemView);
         mTextId = (TextView) itemView.findViewById(R.id.history_id);
@@ -83,8 +99,11 @@ class HistoryHolder extends RecyclerView.ViewHolder {
         mTextTotal = (TextView) itemView.findViewById(R.id.history_total);
         mTextDate = (TextView) itemView.findViewById(R.id.history_date);
         mTextAddress = (TextView) itemView.findViewById(R.id.history_address);
-        mTextTrack = (TextView) itemView.findViewById(R.id.history_track);
-        mTextUpdate = (TextView) itemView.findViewById(R.id.history_update);
-        mTextCancel = (TextView) itemView.findViewById(R.id.history_cancel);
+
+        btn_track = (TextView) itemView.findViewById(R.id.history_track);
+        btn_update = (TextView) itemView.findViewById(R.id.history_update);
+        btn_cancel = (TextView) itemView.findViewById(R.id.history_cancel);
+
+//        mTextStatus = (TextView) itemView.findViewById(R.id.history_status);
     }
 }

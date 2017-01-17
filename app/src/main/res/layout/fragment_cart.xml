@@ -12,7 +12,7 @@
             android:layout_height="match_parent"/>
     <TextView
             android:textSize="28sp"
-            android:id="@+id/cart_total"
+            android:id="@+id/cart_total_price"
             android:layout_above="@+id/cart_checkout"
             android:gravity="end"
             android:textColor="@color/colorPrimaryDark"

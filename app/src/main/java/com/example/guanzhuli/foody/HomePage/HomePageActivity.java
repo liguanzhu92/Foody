@@ -17,13 +17,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.widget.TextView;
 import com.example.guanzhuli.foody.CartPage.CartActivity;
 import com.example.guanzhuli.foody.HomePage.fragment.*;
 import com.example.guanzhuli.foody.R;
 import com.example.guanzhuli.foody.StartingPage.SplashActivity;
 import com.example.guanzhuli.foody.controller.SPManipulation;
+import com.example.guanzhuli.foody.controller.ShoppingCartItem;
+import com.facebook.FacebookSdk;
 import com.facebook.login.LoginManager;
-import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 
 public class HomePageActivity extends AppCompatActivity
@@ -36,6 +38,7 @@ public class HomePageActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
 
         setCity();
@@ -50,7 +53,7 @@ public class HomePageActivity extends AppCompatActivity
         }
     }
 
-
+    public static TextView cartNumber;
     private void init(){
 
         pDialog = new ProgressDialog(this);
@@ -61,6 +64,8 @@ public class HomePageActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        cartNumber = (TextView) findViewById(R.id.cart_item_number);
+        cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance().getSize()));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import com.example.guanzhuli.foody.R;
+import com.example.guanzhuli.foody.controller.ShoppingCartItem;
+import com.example.guanzhuli.foody.model.Food;
 
 /**
  * Created by Guanzhu Li on 1/16/2017.
@@ -30,11 +32,31 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutHolder>{
 
     @Override
     public void onBindViewHolder(CheckoutHolder holder, int position) {
+
+        if (position == getItemCount() - 2){
+            holder.mTextName.setText("");
+            holder.mTextPrice.setText("1.99");
+            holder.mTextQuantity.setText("Shipping");
+            return;
+        }
+        else if (position == getItemCount() - 1){
+            holder.mTextName.setText("");
+            holder.mTextPrice.setText("" + (ShoppingCartItem.getInstance().getPrice() * 0.06));
+            holder.mTextQuantity.setText("Tax");
+            return;
+        }
+
+        int id = ShoppingCartItem.getInstance().getFoodInCart().get(position);
+        final Food curFood = ShoppingCartItem.getInstance().getFoodById(id);
+        final int curFoodNumber = ShoppingCartItem.getInstance().getFoodNumber(curFood);
+        holder.mTextName.setText(curFood.getName());
+        holder.mTextPrice.setText(String.valueOf(curFoodNumber * curFood.getPrice()));
+        holder.mTextQuantity.setText(String.valueOf(curFoodNumber));
     }
 
     @Override
     public int getItemCount() {
-        return 6;
+        return ShoppingCartItem.getInstance().getFoodTypeSize() + 2;
     }
 }
 class CheckoutHolder extends RecyclerView.ViewHolder {
