@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.content.res.Configuration;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.animation.AlphaAnimation;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 import com.example.guanzhuli.foody.HomePage.HomePageActivity;
 import com.example.guanzhuli.foody.R;
 import com.example.guanzhuli.foody.controller.SPManipulation;
@@ -117,6 +121,10 @@ public class SplashActivity extends AppCompatActivity {
                 toggle();
             }
         });
+        /*----------------------------------------------------------*/
+        TextView textView = (TextView) findViewById(R.id.sign_in);
+        Log.i("button infor", textView.getText().toString());
+        Log.i("Activity", "onCreate");
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -184,8 +192,27 @@ public class SplashActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
 
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        View view = this.getWindow().getDecorView();
+        ImageView imageView = (ImageView) view.findViewById(R.id.splash_background);
+        TextView textView = (TextView) view.findViewById(R.id.sign_in);
+        int orientation = getResources().getConfiguration().orientation;
+        if(orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            Toast.makeText(SplashActivity.this, "Land", Toast.LENGTH_LONG).show();
+            // view.setBackgroundResource (R.drawable.background_land);
+            textView.setText("Sign in Land");
+            Log.i("button infor", textView.getText().toString());
+        } else {
+            Toast.makeText(SplashActivity.this, "Port", Toast.LENGTH_LONG).show();
+            // view.setBackgroundResource (R.drawable.background_port);
+            textView.setText("Sign in Port");
+            Log.i("button infor", textView.getText().toString());
+        }
+    }
 
-/*    void printHahKey(){
+    /*    void printHahKey(){
         try {
             PackageInfo info = getPackageManager().getPackageInfo(
                     "com.example.guanzhuli.foody",
@@ -201,4 +228,34 @@ public class SplashActivity extends AppCompatActivity {
 
         }
     }*/
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.i("Activity", "restart");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("Activity", "resume");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.i("Activity", "pause");
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.i("Activity", "start");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.i("Activity", "stop");
+    }
 }
