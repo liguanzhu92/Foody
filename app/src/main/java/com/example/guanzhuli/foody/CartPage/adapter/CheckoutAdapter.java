@@ -41,14 +41,14 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutHolder>{
         }
         else if (position == getItemCount() - 1){
             holder.mTextName.setText("");
-            holder.mTextPrice.setText("" + (ShoppingCartItem.getInstance().getPrice() * 0.06));
+            holder.mTextPrice.setText("" + (ShoppingCartItem.getInstance(mContext).getPrice() * 0.06));
             holder.mTextQuantity.setText("Tax");
             return;
         }
 
-        int id = ShoppingCartItem.getInstance().getFoodInCart().get(position);
-        final Food curFood = ShoppingCartItem.getInstance().getFoodById(id);
-        final int curFoodNumber = ShoppingCartItem.getInstance().getFoodNumber(curFood);
+        int id = ShoppingCartItem.getInstance(mContext).getFoodInCart().get(position);
+        final Food curFood = ShoppingCartItem.getInstance(mContext).getFoodById(id);
+        final int curFoodNumber = ShoppingCartItem.getInstance(mContext).getFoodNumber(curFood);
         holder.mTextName.setText(curFood.getName());
         holder.mTextPrice.setText(String.valueOf(curFoodNumber * curFood.getPrice()));
         holder.mTextQuantity.setText(String.valueOf(curFoodNumber));
@@ -56,7 +56,7 @@ public class CheckoutAdapter extends RecyclerView.Adapter<CheckoutHolder>{
 
     @Override
     public int getItemCount() {
-        return ShoppingCartItem.getInstance().getFoodTypeSize() + 2;
+        return ShoppingCartItem.getInstance(mContext).getFoodTypeSize() + 2;
     }
 }
 class CheckoutHolder extends RecyclerView.ViewHolder {

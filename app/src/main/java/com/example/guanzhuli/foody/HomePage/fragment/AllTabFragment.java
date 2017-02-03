@@ -1,5 +1,8 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
 
+// Lily: Designed UI. Set fragment replacement. Implemented custom animation.
+// Xiao: implemented data request and onClickListener for each adapter.
+
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

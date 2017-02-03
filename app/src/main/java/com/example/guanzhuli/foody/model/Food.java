@@ -1,6 +1,10 @@
 package com.example.guanzhuli.foody.model;
+// Lily: Designed and implemented Food class for future using.
+// Xiao: Added setImage function for storing image after ImageRequest finished.
 
 import android.graphics.Bitmap;
+
+
 
 /**
  * Created by Guanzhu Li on 1/13/2017.

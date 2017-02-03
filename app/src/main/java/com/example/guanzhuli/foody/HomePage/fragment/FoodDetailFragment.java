@@ -1,4 +1,6 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
+// Lily: Designed and initialized UI. Set fragment replacement and on button click listener.
+// Xiao: implemented view replacement based on bundle info passing from prev fragment and custom AlertDialog.
 
 
 import android.app.AlertDialog;
@@ -105,9 +107,9 @@ public class FoodDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
 
-                ShoppingCartItem.getInstance().addToCart(food);
+                ShoppingCartItem.getInstance(getContext()).addToCart(food);
                 TextView cartNumber = (TextView)getActivity().findViewById(R.id.cart_item_number);
-                cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance().getSize()));
+                cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance(getContext()).getSize()));
 
                 new AlertDialog.Builder(getActivity()).setTitle("Successful!").setIcon(
                         android.R.drawable.ic_dialog_info)

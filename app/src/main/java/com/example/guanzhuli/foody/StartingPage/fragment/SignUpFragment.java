@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -63,8 +64,10 @@ public class SignUpFragment extends Fragment {
         btn_signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!repassword.getText().toString().equals(password.getText().toString()))
+                if (!repassword.getText().toString().equals(password.getText().toString())){
+                    Toast.makeText(getActivity(), "Password and confirm password not same. Please try again.", Toast.LENGTH_SHORT).show();
                     return;
+                }
                 registrationMethod();
             }
         });
@@ -91,6 +94,15 @@ public class SignUpFragment extends Fragment {
                     @Override
                     public void onResponse(String response) {
                         Log.e(TAG, "Response --> " + response);
+                        if (response.contains("successfully")){
+                            getActivity().recreate();
+                        }
+                        else {
+                            Toast.makeText(getActivity(), "Phone number already existed. Please try again!", Toast.LENGTH_SHORT).show();
+                            mobile.setText("");
+                            password.setText("");
+                            repassword.setText("");
+                        }
                         SignInActivity.disPDialog();
                     }
                 },
@@ -104,11 +116,11 @@ public class SignUpFragment extends Fragment {
             @Override
             protected Map<String, String> getParams() throws AuthFailureError {
                 final Map<String, String> params = new HashMap<String, String>();
-                params.put("user_name",username.getText().toString());
-                params.put("user_email",email.getText().toString());
-                params.put("user_phone",mobile.getText().toString());
-                params.put("user_password",password.getText().toString());
-                params.put("user_add",address.getText().toString());
+                params.put("user_name",username.getText().toString().trim());
+                params.put("user_email",email.getText().toString().trim());
+                params.put("user_phone",mobile.getText().toString().trim());
+                params.put("user_password",password.getText().toString().trim());
+                params.put("user_add",address.getText().toString().trim());
                 Log.e("POST",params.toString());
                 return params;
             }

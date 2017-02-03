@@ -1,4 +1,5 @@
 package com.example.guanzhuli.foody.CartPage;
+// Done by Xiao.
 
 import android.Manifest;
 import android.content.pm.PackageManager;
@@ -80,7 +81,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             checkLocationPermission();
         }
 
@@ -101,6 +102,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         sb.append("ka&sensor=false");
         return sb.toString();
     }
+
 
     private void getLocationInfo(String address){
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET, buildUrl(address), null, new Response.Listener<JSONObject>() {
@@ -140,7 +142,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         LatLng setLocation = new LatLng(lat, lng);
         mMap.addMarker(new MarkerOptions().position(setLocation).title("Set Location"));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(setLocation));
-        mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
+        mMap.animateCamera(CameraUpdateFactory.zoomTo(15));
     }
 
 
@@ -159,7 +161,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
         //Initialize Google Play Services
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this,
                     Manifest.permission.ACCESS_FINE_LOCATION)
                     == PackageManager.PERMISSION_GRANTED) {

@@ -1,4 +1,6 @@
 package com.example.guanzhuli.foody.HomePage.adapter;
+// Lily: Designed and coded base function for adapter.
+// Xiao: Changed functions and design based on different using.
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;

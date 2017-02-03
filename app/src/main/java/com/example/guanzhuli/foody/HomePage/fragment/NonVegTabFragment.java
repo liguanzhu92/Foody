@@ -1,5 +1,6 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
-
+// Lily: Designed UI. Set fragment replacement. Implemented custom animation.
+// Xiao: implemented data request and onClickListener for each adapter.
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -63,8 +64,19 @@ public class NonVegTabFragment extends Fragment {
         adapter.setOnItemClickListener(new AllFoodAdapter.OnRecyclerViewItemClickListener() {
             @Override
             public void onItemClick(View view, String data) {
-                Toast.makeText(getActivity(), "Click At: " + data, Toast.LENGTH_SHORT).show();
+                Bundle itemInfo = new Bundle();
+                for (int i=0; i<foods.size(); i++){
+                    if (foods.get(i).getId() == Integer.valueOf(data)){
+                        itemInfo.putInt("foodId", foods.get(i).getId());
+                        itemInfo.putString("foodName", foods.get(i).getName());
+                        itemInfo.putString("foodCat", foods.get(i).getCategory());
+                        itemInfo.putString("foodRec", foods.get(i).getRecepiee());
+                        itemInfo.putDouble("foodPrice", foods.get(i).getPrice());
+                        itemInfo.putString("foodImage", foods.get(i).getImageUrl());
+                    }
+                }
                 FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
+                foodDetailFragment.setArguments(itemInfo);
                 getActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .setCustomAnimations(R.anim.fade_in, R.anim.fade_out, R.anim.fade_in, R.anim.fade_out)

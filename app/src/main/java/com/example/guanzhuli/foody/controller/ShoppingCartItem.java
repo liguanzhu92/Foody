@@ -1,6 +1,9 @@
 package com.example.guanzhuli.foody.controller;
+// Done by Xiao.
 
+import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -24,6 +27,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 
+import static com.example.guanzhuli.foody.controller.DBHelper.TABLENAME;
+
 /**
  * Created by liuxi on 2017/1/16.
  */
@@ -36,10 +41,18 @@ public class ShoppingCartItem {
     private int totalPrice;
 
     ShoppingCartItem(){
+
         foodsId = new ArrayList<Integer>();
         foodMap = new HashMap<Food, Integer>();
         totalNumber = 0;
         totalPrice = 0;
+    }
+
+    ShoppingCartItem(ArrayList<Integer> foodsId, HashMap<Food, Integer> foodMap, int totalNumber, int totalPrice){
+        this.foodsId = foodsId;
+        this.foodMap = foodMap;
+        this.totalNumber = totalNumber;
+        this.totalPrice = totalPrice;
     }
 
     public void clear(){
@@ -53,9 +66,58 @@ public class ShoppingCartItem {
         return foodsId;
     }
 
-    public static synchronized ShoppingCartItem getInstance(){
+    public void setNull(){
+        instance = null;
+    }
+
+    public static synchronized ShoppingCartItem getInstance(Context context){
         if (instance == null){
-            instance = new ShoppingCartItem();
+            Cursor cursor = DBManipulation.getInstance(context).getDb()
+                    .rawQuery("SELECT * FROM " + TABLENAME, null);
+            if (cursor.getCount() > 0){
+                final ArrayList<Integer> idList = new ArrayList<Integer>();
+                final HashMap<Food, Integer> foodInDb = new HashMap<Food, Integer>();
+                int totalNumberInDb = 0;
+                int totalPriceInDb = 0;
+                cursor.moveToFirst();
+                while (!cursor.isAfterLast()) {
+                    String curName = cursor.getString(cursor.getColumnIndex(DBHelper.ITEMNAME));
+                    final int curId = Integer.valueOf(cursor.getString(cursor.getColumnIndex(DBHelper.ITEMID)));
+                    final int curQuantity = Integer.valueOf(cursor.getString(cursor.getColumnIndex(DBHelper.QUANTITY)));
+                    double curPrice = Integer.valueOf(cursor.getString(cursor.getColumnIndex(DBHelper.PRICE)));
+                    String curCategory = cursor.getString(cursor.getColumnIndex(DBHelper.CATEGORY));
+                    String curUrl = cursor.getString(cursor.getColumnIndex(DBHelper.IMAGEURL));
+                    final Food curFood = new Food();
+                    curFood.setId(curId);
+                    curFood.setName(curName);
+                    curFood.setPrice(curPrice);
+                    curFood.setCategory(curCategory);
+                    curFood.setImageUrl(curUrl);
+                    ImageLoader imageLoader = VolleyController.getInstance().getImageLoader();
+                    imageLoader.get(curFood.getImageUrl(), new ImageLoader.ImageListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e("INIT FOOD", "Image Load Error: " + error.getMessage());
+                        }
+                        @Override
+                        public void onResponse(ImageLoader.ImageContainer response, boolean arg1) {
+                            if (response.getBitmap() != null) {
+                                curFood.setImage(response.getBitmap());
+                                idList.add(curId);
+                                foodInDb.put(curFood, curQuantity);
+                            }
+                        }
+                    });
+                    totalNumberInDb += curQuantity;
+                    totalPriceInDb += (curFood.getPrice() * curQuantity);
+                    cursor.moveToNext();
+                }
+                DBManipulation.getInstance(context).deleteAll();
+                instance = new ShoppingCartItem(idList, foodInDb, totalNumberInDb, totalPriceInDb);
+            }
+            else {
+                instance = new ShoppingCartItem();
+            }
         }
         return instance;
     }
@@ -183,6 +245,10 @@ public class ShoppingCartItem {
         }
         Log.e("Build URL", sb.toString());
         return sb.toString();
+    }
+
+    public void addToDb(Context context){
+        DBManipulation.getInstance(context).addAll();
     }
 
 }

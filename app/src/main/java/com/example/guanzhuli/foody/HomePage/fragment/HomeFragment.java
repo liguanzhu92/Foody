@@ -1,5 +1,10 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
-
+// Lily: Designed UI.
+//       Set fragment replacement.
+//       Implemented custom animation.
+//       Initialized view and tab switch.
+// Xiao: Implemented change city function.
+//
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -38,12 +43,6 @@ public class HomeFragment extends Fragment {
 
     private TextView locationView;
     private TextView changeLocView;
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        getActivity().setTitle("Home");
-    }
 
     public HomeFragment() {
         // Required empty public constructor

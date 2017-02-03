@@ -1,4 +1,7 @@
 package com.example.guanzhuli.foody.HomePage;
+// Lily: Finished UI design and navigation drawer design & on item selected listener.
+// Xiao: Implemented default city and logout function
+
 
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -27,6 +30,7 @@ import com.example.guanzhuli.foody.CartPage.CartActivity;
 import com.example.guanzhuli.foody.HomePage.fragment.*;
 import com.example.guanzhuli.foody.R;
 import com.example.guanzhuli.foody.StartingPage.SplashActivity;
+import com.example.guanzhuli.foody.controller.DBManipulation;
 import com.example.guanzhuli.foody.controller.SPManipulation;
 import com.example.guanzhuli.foody.controller.ShoppingCartItem;
 import com.facebook.FacebookSdk;
@@ -60,9 +64,6 @@ public class HomePageActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         FacebookSdk.sdkInitialize(getApplicationContext());
         setContentView(R.layout.activity_main);
-
-
-
         setCity();
         init();
     }
@@ -107,7 +108,7 @@ public class HomePageActivity extends AppCompatActivity
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         cartNumber = (TextView) findViewById(R.id.cart_item_number);
-        cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance().getSize()));
+        cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance(this).getSize()));
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -262,4 +263,6 @@ public class HomePageActivity extends AppCompatActivity
     public void onResult(@NonNull People.LoadPeopleResult loadPeopleResult) {
 
     }
+
+
 }

@@ -1,5 +1,5 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
-
+// Lily: Finished all design for this fragment.
 
 import android.content.Intent;
 import android.net.Uri;

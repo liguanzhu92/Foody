@@ -1,4 +1,9 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
+// Lily: Designed UI. Set fragment replacement.
+//       Implemented custom animation.
+//       Implemented parseWord and parseImage function for order status.
+// Xiao: Implemented data request.
+//       Designed and implemented communication between history fragment via bundle.
 
 
 import android.os.Bundle;

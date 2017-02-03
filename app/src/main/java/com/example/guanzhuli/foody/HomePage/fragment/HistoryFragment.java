@@ -1,5 +1,8 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
 
+// Lily: Designed UI.
+// Xiao: implemented data request.
+
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -94,7 +97,8 @@ public class HistoryFragment extends Fragment {
                         curOrder.setName(name);
                         curOrder.setQuantity(quantity);
                         curOrder.setTotal(totalOrder);
-                        curOrder.setAddress(orderDeliverAdd);
+//                        curOrder.setAddress(orderDeliverAdd);
+                        curOrder.setAddress(SPManipulation.getInstance(getContext()).getAddress());
                         curOrder.setDate(orderDate);
                         curOrder.setStatus(orderStatus);
                         orders.add(curOrder);

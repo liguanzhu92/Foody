@@ -1,4 +1,7 @@
 package com.example.guanzhuli.foody.CartPage.adapter;
+// Lily: Designed and coded base function for adapter.
+// Xiao: Changed functions and design based on different using.
+
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -44,9 +47,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
     @Override
     public void onBindViewHolder(final CartHolder holder, int position) {
 
-        int id = ShoppingCartItem.getInstance().getFoodInCart().get(position);
-        final Food curFood = ShoppingCartItem.getInstance().getFoodById(id);
-        final int curFoodNumber = ShoppingCartItem.getInstance().getFoodNumber(curFood);
+        int id = ShoppingCartItem.getInstance(mContext).getFoodInCart().get(position);
+        final Food curFood = ShoppingCartItem.getInstance(mContext).getFoodById(id);
+        final int curFoodNumber = ShoppingCartItem.getInstance(mContext).getFoodNumber(curFood);
 
         holder.mTextName.setText(curFood.getName());
         holder.mTextCategory.setText(curFood.getCategory());
@@ -61,11 +64,11 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     return;
                 }
                 int currentNumber = curFoodNumber - 1;
-                ShoppingCartItem.getInstance().setFoodNumber(curFood, currentNumber);
+                ShoppingCartItem.getInstance(mContext).setFoodNumber(curFood, currentNumber);
 
 
-                HomePageActivity.cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance().getSize()));
-                CartFragment.cart_total.setText(String.valueOf(ShoppingCartItem.getInstance().getPrice()));
+                HomePageActivity.cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance(mContext).getSize()));
+                CartFragment.cart_total.setText(String.valueOf(ShoppingCartItem.getInstance(mContext).getPrice()));
                 notifyDataSetChanged();
             }
         });
@@ -77,19 +80,30 @@ public class CartAdapter extends RecyclerView.Adapter<CartHolder> implements Vie
                     return;
                 }
                 int currentNumber = curFoodNumber + 1;
-                ShoppingCartItem.getInstance().setFoodNumber(curFood, currentNumber);
+                ShoppingCartItem.getInstance(mContext).setFoodNumber(curFood, currentNumber);
 
-                HomePageActivity.cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance().getSize()));
-                CartFragment.cart_total.setText(String.valueOf(ShoppingCartItem.getInstance().getPrice()));
+                HomePageActivity.cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance(mContext).getSize()));
+                CartFragment.cart_total.setText(String.valueOf(ShoppingCartItem.getInstance(mContext).getPrice()));
                 notifyDataSetChanged();
             }
         });
 
     }
 
+    public void deleteData(int position) {
+        int id = ShoppingCartItem.getInstance(mContext).getFoodInCart().get(position);
+        Food curFood = ShoppingCartItem.getInstance(mContext).getFoodById(id);
+        ShoppingCartItem.getInstance(mContext).setFoodNumber(curFood, 0);
+
+
+        HomePageActivity.cartNumber.setText(String.valueOf(ShoppingCartItem.getInstance(mContext).getSize()));
+        CartFragment.cart_total.setText(String.valueOf(ShoppingCartItem.getInstance(mContext).getPrice()));
+        notifyDataSetChanged();
+    }
+
     @Override
     public int getItemCount() {
-        return ShoppingCartItem.getInstance().getFoodTypeSize();
+        return ShoppingCartItem.getInstance(mContext).getFoodTypeSize();
     }
 
 

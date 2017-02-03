@@ -1,6 +1,13 @@
 package com.example.guanzhuli.foody.StartingPage;
+// Lily: Implemented Facebook & google login.
+//       Finished UI design
+//       Implemented custom tab layout.
+//       Designed views of different fragment
 
-import com.facebook.FacebookSdk;
+// Xiao: Implemented normal login via Volley request.
+//       Implemented user info. store in SharedPreference.
+//       Implemented sign up function via Volley request
+
 import android.app.ProgressDialog;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -15,6 +22,7 @@ import android.view.MenuItem;
 import com.example.guanzhuli.foody.R;
 import com.example.guanzhuli.foody.StartingPage.fragment.SignInFragment;
 import com.example.guanzhuli.foody.StartingPage.fragment.SignUpFragment;
+import com.facebook.FacebookSdk;
 
 public class SignInActivity extends AppCompatActivity {
 
@@ -32,6 +40,8 @@ public class SignInActivity extends AppCompatActivity {
      * The {@link ViewPager} that will host the section contents.
      */
     private ViewPager mViewPager;
+
+
 
     private static ProgressDialog pDialog;
     @Override

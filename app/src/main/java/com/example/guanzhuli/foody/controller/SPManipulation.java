@@ -1,4 +1,7 @@
 package com.example.guanzhuli.foody.controller;
+// Done by Lily.
+
+// Xiao: Implemented clear function.
 
 import android.content.Context;
 import android.content.SharedPreferences;

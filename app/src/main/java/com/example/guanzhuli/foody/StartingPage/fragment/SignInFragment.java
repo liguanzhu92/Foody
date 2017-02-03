@@ -60,7 +60,7 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
 
     // Declare all views name;
     View view;
-    //    Button btn_signIn;
+//    Button btn_signIn;
     EditText mobile, password;
     TextView toSignUp;
 
@@ -124,7 +124,7 @@ public class SignInFragment extends Fragment implements GoogleApiClient.OnConnec
             public void onSuccess(LoginResult loginResult) {
                 // App code
                 Log.e("fblogin", "success");
-                GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
+                final GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(),
                         new GraphRequest.GraphJSONObjectCallback() {
                             @Override
                             public void onCompleted(JSONObject object, GraphResponse response) {

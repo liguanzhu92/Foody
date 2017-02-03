@@ -1,5 +1,9 @@
 package com.example.guanzhuli.foody.HomePage.fragment;
-
+// Lily: Implemented UI and initialized view.
+//       Initialized on button click listener and basic functions for each button.
+//       Implemented pwd and retype pwd check function.
+// Xiao: Implemented web service communication for different functions.
+//       Set view change after different function been called.
 
 import android.app.Dialog;
 import android.content.DialogInterface;

@@ -15,7 +15,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <string name="facebook_app_id">1832756210295590</string>
+    <string name="facebook_app_id">349410092108752</string>
     <string name="fb_login_protocol_scheme">fb1832756210295590</string>
     <string name="google_maps_key" translatable="false" templateMergeStrategy="preserve">AIzaSyBsmvVVXBT1Gk_gC3uObsSPSZwZXwMPwp0</string>
     <string name="title_activity_maps">Map</string>

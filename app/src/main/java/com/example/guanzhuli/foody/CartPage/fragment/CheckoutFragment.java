@@ -1,4 +1,7 @@
 package com.example.guanzhuli.foody.CartPage.fragment;
+// Lily: Base function for PayPal.
+// Xiao: Implemented check out item list via in-cart items.
+//       Added tax and shipping fee.
 
 
 import android.app.AlertDialog;
@@ -24,6 +27,7 @@ import com.example.guanzhuli.foody.CartPage.MapsActivity;
 import com.example.guanzhuli.foody.CartPage.adapter.CheckoutAdapter;
 import com.example.guanzhuli.foody.HomePage.HomePageActivity;
 import com.example.guanzhuli.foody.R;
+import com.example.guanzhuli.foody.controller.DBManipulation;
 import com.example.guanzhuli.foody.controller.SPManipulation;
 import com.example.guanzhuli.foody.controller.ShoppingCartItem;
 import com.example.guanzhuli.foody.model.Food;
@@ -162,7 +166,7 @@ public class CheckoutFragment extends Fragment {
             }
         });
 
-        mTextTotal.setText(String.valueOf(ShoppingCartItem.getInstance().getPrice() * 1.06 + 1.99));
+        mTextTotal.setText(String.valueOf(ShoppingCartItem.getInstance(getContext()).getPrice() * 1.06 + 1.99));
 
         return view;
     }
@@ -171,8 +175,9 @@ public class CheckoutFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_CODE_PAYMENT) {
             if (resultCode == getActivity().RESULT_OK) {
-                ShoppingCartItem.getInstance().placeOrder(mTextAddress.getText().toString(), mTextMobile.getText().toString());
-                ShoppingCartItem.getInstance().clear();
+                ShoppingCartItem.getInstance(getContext()).placeOrder(mTextAddress.getText().toString(), mTextMobile.getText().toString());
+                ShoppingCartItem.getInstance(getContext()).clear();
+                DBManipulation.getInstance(getActivity()).deleteAll();
                 PaymentConfirmation confirm =
                         data.getParcelableExtra(PaymentActivity.EXTRA_RESULT_CONFIRMATION);
                 if (confirm != null) {
@@ -242,11 +247,11 @@ public class CheckoutFragment extends Fragment {
 
     private PayPalPayment getStuffToBuy(String paymentIntent) {
         //--- include an item list, payment amount details
-        PayPalItem[] items = new PayPalItem[ShoppingCartItem.getInstance().getFoodTypeSize()];
-        for (int position = 0; position < ShoppingCartItem.getInstance().getFoodTypeSize(); position++){
-            int id = ShoppingCartItem.getInstance().getFoodInCart().get(position);
-            final Food curFood = ShoppingCartItem.getInstance().getFoodById(id);
-            final int curFoodNumber = ShoppingCartItem.getInstance().getFoodNumber(curFood);
+        PayPalItem[] items = new PayPalItem[ShoppingCartItem.getInstance(getContext()).getFoodTypeSize()];
+        for (int position = 0; position < ShoppingCartItem.getInstance(getContext()).getFoodTypeSize(); position++){
+            int id = ShoppingCartItem.getInstance(getContext()).getFoodInCart().get(position);
+            final Food curFood = ShoppingCartItem.getInstance(getContext()).getFoodById(id);
+            final int curFoodNumber = ShoppingCartItem.getInstance(getContext()).getFoodNumber(curFood);
             Log.e("PRICE & NUMBER", "price: " + curFood.getPrice() + ", number: " + curFoodNumber);
             items[position] = new PayPalItem("Item No." + curFood.getId(),
                     curFoodNumber,
@@ -257,7 +262,7 @@ public class CheckoutFragment extends Fragment {
         }
         BigDecimal subtotal = PayPalItem.getItemTotal(items);
         BigDecimal shipping = new BigDecimal("1.99");
-        BigDecimal tax = new BigDecimal("" + ShoppingCartItem.getInstance().getPrice() * 0.06);
+        BigDecimal tax = new BigDecimal("" + ShoppingCartItem.getInstance(getContext()).getPrice() * 0.06);
         PayPalPaymentDetails paymentDetails = new PayPalPaymentDetails(shipping, subtotal, tax);
         BigDecimal amount = subtotal.add(shipping).add(tax);
         PayPalPayment payment = new PayPalPayment(amount, "USD", "Foody Inc.", paymentIntent);

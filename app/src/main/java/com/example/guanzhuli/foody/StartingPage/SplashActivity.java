@@ -1,4 +1,6 @@
 package com.example.guanzhuli.foody.StartingPage;
+// Lily: Designed splash screen and custom animation.
+// Xiao: Implemented user sign in status checking.
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -20,9 +22,11 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.guanzhuli.foody.HomePage.HomePageActivity;
 import com.example.guanzhuli.foody.R;
 import com.example.guanzhuli.foody.controller.SPManipulation;
+import com.example.guanzhuli.foody.controller.ShoppingCartItem;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -121,10 +125,6 @@ public class SplashActivity extends AppCompatActivity {
                 toggle();
             }
         });
-        /*----------------------------------------------------------*/
-        TextView textView = (TextView) findViewById(R.id.sign_in);
-        Log.i("button infor", textView.getText().toString());
-        Log.i("Activity", "onCreate");
 
         // Upon interacting with UI controls, delay any scheduled hide()
         // operations to prevent the jarring behavior of controls going away
@@ -136,13 +136,29 @@ public class SplashActivity extends AppCompatActivity {
                 if (SPManipulation.getInstance(SplashActivity.this).getMobile() == null)
                     startActivity(new Intent(SplashActivity.this, SignInActivity.class));
                 else {
-                    // printHahKey();
+                    printHahKey();
                     startActivity(new Intent(SplashActivity.this, HomePageActivity.class));
                 }
             }
         });
-
     }
+
+    void printHahKey(){
+                try {
+                        PackageInfo info = getPackageManager().getPackageInfo(
+                                        "com.example.guanzhuli.foody",
+                                        PackageManager.GET_SIGNATURES);
+                        for (Signature signature : info.signatures) {
+                                MessageDigest md = MessageDigest.getInstance("SHA");
+                                md.update(signature.toByteArray());
+                                Log.e("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
+                            }
+                    } catch (PackageManager.NameNotFoundException e) {
+
+                            } catch (NoSuchAlgorithmException e) {
+
+                            }
+            }
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -191,6 +207,12 @@ public class SplashActivity extends AppCompatActivity {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);
     }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        ShoppingCartItem.getInstance(SplashActivity.this).addToDb(SplashActivity.this);
+        ShoppingCartItem.getInstance(SplashActivity.this).setNull();
+    }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
@@ -212,50 +234,4 @@ public class SplashActivity extends AppCompatActivity {
         }
     }
 
-    /*    void printHahKey(){
-        try {
-            PackageInfo info = getPackageManager().getPackageInfo(
-                    "com.example.guanzhuli.foody",
-                    PackageManager.GET_SIGNATURES);
-            for (Signature signature : info.signatures) {
-                MessageDigest md = MessageDigest.getInstance("SHA");
-                md.update(signature.toByteArray());
-                Log.d("KeyHash", Base64.encodeToString(md.digest(), Base64.DEFAULT));
-            }
-        } catch (PackageManager.NameNotFoundException e) {
-
-        } catch (NoSuchAlgorithmException e) {
-
-        }
-    }*/
-
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        Log.i("Activity", "restart");
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Log.i("Activity", "resume");
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        Log.i("Activity", "pause");
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        Log.i("Activity", "start");
-    }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-        Log.i("Activity", "stop");
-    }
 }

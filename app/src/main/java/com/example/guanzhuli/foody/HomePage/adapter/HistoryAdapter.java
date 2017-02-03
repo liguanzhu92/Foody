@@ -1,4 +1,6 @@
 package com.example.guanzhuli.foody.HomePage.adapter;
+// Lily: Designed and coded base function for adapter.
+// Xiao: Changed functions and design based on different using.
 
 import android.content.Context;
 import android.os.Bundle;
@@ -60,6 +62,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
             }
         });
 
+
         holder.btn_cancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -83,7 +86,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder>{
 
 class HistoryHolder extends RecyclerView.ViewHolder {
     TextView mTextId, mTextName, mTextQuantity, mTextTotal, mTextDate, mTextAddress, mTextStatus;
-    TextView btn_track, btn_cancel;
+    TextView btn_track, btn_update, btn_cancel;
     public HistoryHolder(View itemView) {
         super(itemView);
         mTextId = (TextView) itemView.findViewById(R.id.history_id);
